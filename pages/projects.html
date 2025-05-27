@@ -58,6 +58,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('backgroundMusic');
+            const backgroundDiv = document.querySelector('.background');
+            
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+            }
+            
+            // Load saved background image preference
+            const savedBackground = localStorage.getItem('backgroundImage');
+            if (savedBackground) {
+                backgroundDiv.style.backgroundImage = `url('../images/${savedBackground}')`;
+                if (savedBackground === 'background2.png') {
+                    backgroundDiv.classList.add('background2');
+                } else {
+                    backgroundDiv.classList.remove('background2');
+                }
+            }
             
             // Load saved time if it exists
             const savedTime = sessionStorage.getItem('audioTime');
