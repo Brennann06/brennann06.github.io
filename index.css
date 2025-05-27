@@ -84,6 +84,30 @@ Custom Scrollbar Styles (Webkit browsers)
     z-index: 0;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    animation: backgroundPan 60s linear infinite;
+}
+
+@keyframes backgroundPan {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+/* Add a class for the second background animation */
+.background.background2 {
+    animation: backgroundPan2 45s linear infinite;
+}
+
+@keyframes backgroundPan2 {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 .glass-card {
