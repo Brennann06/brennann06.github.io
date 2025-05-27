@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brennan's Projects</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../css/projects.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div class="background"></div>
+    <audio id="backgroundMusic" autoplay loop preload="auto">
+        <source src="../sounds/background.wav" type="audio/wav">
+    </audio>
+    <main class="glass-card projects-container">
+        <div class="header">
+            <a href="../index.html" class="back-btn"><span class="icon">←</span> Back</a>
+            <h1 class="name">My Projects</h1>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Project Card 1 -->
+            <div class="project-card">
+                <h2 class="project-title">Project Name</h2>
+                <p class="project-description">test.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">MongoDB</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-btn github-btn"><span class="icon">🐙</span> GitHub</a>
+                    <a href="#" class="project-btn live-btn"><span class="icon">🌐</span> Live</a>
+                </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="project-card">
+                <h2 class="project-title">Another Project</h2>
+                <p class="project-description">test.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Django</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-btn github-btn"><span class="icon">🐙</span> GitHub</a>
+                    <a href="#" class="project-btn live-btn"><span class="icon">🌐</span> Live</a>
+                </div>
+            </div>
+
+            <!-- Add more project cards as needed -->
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('backgroundMusic');
+            
+            // Load saved time if it exists
+            const savedTime = sessionStorage.getItem('audioTime');
+            if (savedTime) {
+                audio.currentTime = parseFloat(savedTime);
+            }
+            
+            function startAudio() {
+                audio.volume = 0.2;
+                let playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log("Audio started playing");
+                    })
+                    .catch(error => {
+                        console.log("Audio playback failed:", error);
+                        document.body.addEventListener('click', function playOnClick() {
+                            audio.play();
+                            document.body.removeEventListener('click', playOnClick);
+                        }, { once: true });
+                    });
+                }
+            }
+
+            // Save time periodically
+            setInterval(() => {
+                sessionStorage.setItem('audioTime', audio.currentTime);
+            }, 1000);
+
+            startAudio();
+            document.addEventListener('click', startAudio, { once: true });
+            document.addEventListener('touchstart', startAudio, { once: true });
+            document.addEventListener('keydown', startAudio, { once: true });
+        });
+    </script>
+</body>
+</html>
