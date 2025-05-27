@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brennan's Portfolio</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div class="background"></div>
+    <audio id="backgroundMusic" autoplay loop preload="auto">
+        <source src="sounds/background.wav" type="audio/wav">
+    </audio>
+    <main class="glass-card">
+        <div class="profile-block">
+            <img src="images/profile.png" alt="Profile picture of Brennan" class="profile-pic">
+            <div class="profile-details">
+                <h1 class="name">Brennan</h1>
+                <div class="badges-row">
+                    <span class="badge rainbow-badge">Bisexual</span>
+                    <span class="pronouns">(he/him)</span>
+                </div>
+                <p class="bio">Hey! I'm Brennan, a 19-year-old high school graduate and full stack developer. I love building cool things, learning new tech, and sharing my work with the world. Welcome to my digital space!</p>
+            </div>
+        </div>
+        <div class="links-row">
+            <a href="https://discordapp.com/users/1342454323027775549" class="icon-btn" title="Discord"><span class="icon">💬</span> Discord</a>
+            <a href="https://github.com/Brennann06" class="icon-btn" title="GitHub"><span class="icon">🐙</span> GitHub</a>
+            <a href="pages/projects.html" class="icon-btn" title="Projects"><span class="icon">📁</span> Projects</a>
+        </div>
+        <details class="settings-panel">
+            <summary class="icon-btn settings-btn"><span class="icon">⚙️</span> Settings <span class="icon arrow">▼</span></summary>
+            <div class="settings-content">
+                <details class="audio-settings">
+                    <summary class="settings-menu-item"><span class="icon">🔊</span> Audio <span class="icon arrow">▼</span></summary>
+                    <div class="audio-controls">
+                        <label for="volume">Music Volume</label>
+                        <input type="range" id="volume" min="0" max="100" value="20" class="volume-slider">
+                        <button id="muteBtn" class="control-btn"><span class="icon">🔊</span></button>
+                        <div class="audio-selection">
+                            <label>Background Music:</label>
+                            <select id="audioSelect" class="audio-select">
+                                <option value="background.wav">Calm Lofi</option>
+                                <option value="background2.wav">Chill Lofi</option>
+                            </select>
+                        </div>
+                    </div>
+                </details>
+                <details class="theme-settings">
+                    <summary class="settings-menu-item"><span class="icon">🎨</span> Theme <span class="icon arrow">▼</span></summary>
+                    <div class="theme-controls">
+                        <button class="theme-option" data-theme="default">Default Theme</button>
+                        <button class="theme-option" data-theme="dark">Dark Theme</button>
+                    </div>
+                </details>
+                <details class="background-settings">
+                    <summary class="settings-menu-item"><span class="icon">🏞️</span> Background <span class="icon arrow">▼</span></summary>
+                    <div class="background-controls">
+                        <div class="transparency-control">
+                            <label for="cardTransparency">Card Transparency</label>
+                            <input type="range" id="cardTransparency" min="0" max="100" value="85" class="volume-slider">
+                        </div>
+                        <button class="bg-option" data-image="background.png">
+                            <img src="images/background.png" alt="Galaxy Background Thumbnail">
+                            <span>Galaxy</span>
+                        </button>
+                        <button class="bg-option" data-image="background2.png">
+                            <img src="images/background2.png" alt="Nebula Background Thumbnail">
+                            <span>Nebula</span>
+                        </button>
+                    </div>
+                </details>
+                <button id="mainResetBtn" class="icon-btn">Reset All Settings</button>
+            </div>
+        </details>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('backgroundMusic');
+            const volumeSlider = document.getElementById('volume');
+            const muteBtn = document.getElementById('muteBtn');
+            const bgOptions = document.querySelectorAll('.bg-option');
+            const backgroundDiv = document.querySelector('.background');
+            const glassCard = document.querySelector('.glass-card');
+            const transparencySlider = document.getElementById('cardTransparency');
+            const audioSelect = document.getElementById('audioSelect');
+            const themeOptions = document.querySelectorAll('.theme-option');
+
+            let isMuted = false;
+
+            const defaultVolume = 0.2;
+            const defaultBackground = 'background.png';
+            const defaultTransparency = 85;
+            const defaultAudio = 'background.wav';
+            const defaultTheme = 'default';
+            
+            // Load saved time if it exists
+            const savedTime = sessionStorage.getItem('audioTime');
+            if (savedTime) {
+                audio.currentTime = parseFloat(savedTime);
+            }
+
+            // Load saved background image preference and transparency
+            const savedBackground = localStorage.getItem('backgroundImage');
+            if (savedBackground) {
+                backgroundDiv.style.backgroundImage = `url('images/${savedBackground}')`;
+            } else {
+                // Apply default background image if no saved value
+                backgroundDiv.style.backgroundImage = `url('images/${defaultBackground}')`;
+                document.body.classList.remove('no-background-blur');
+            }
+
+            const savedTransparency = localStorage.getItem('cardTransparency');
+            if (savedTransparency !== null) {
+                const transparencyValue = parseInt(savedTransparency, 10);
+                transparencySlider.value = transparencyValue;
+                applyTransparency(transparencyValue);
+            } else {
+                 // Apply default transparency if no saved value
+                 transparencySlider.value = defaultTransparency;
+                 applyTransparency(defaultTransparency);
+            }
+
+            // Load saved audio preference
+            const savedAudio = localStorage.getItem('backgroundAudio');
+            if (savedAudio) {
+                audioSelect.value = savedAudio;
+                audio.src = `sounds/${savedAudio}`;
+            } else {
+                audioSelect.value = defaultAudio;
+                audio.src = `sounds/${defaultAudio}`;
+            }
+
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+            } else {
+                document.body.setAttribute('data-theme', defaultTheme);
+            }
+
+            // Save time periodically
+            setInterval(() => {
+                sessionStorage.setItem('audioTime', audio.currentTime);
+            }, 1000);
+
+            function startAudio() {
+                audio.volume = volumeSlider.value / 100;
+                let playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log("Audio started playing");
+                    })
+                    .catch(error => {
+                        console.log("Audio playback failed:", error);
+                        document.body.addEventListener('click', function playOnClick() {
+                            audio.play();
+                            document.body.removeEventListener('click', playOnClick);
+                        }, { once: true });
+                    });
+                }
+            }
+
+            function applyTransparency(value) {
+                 const alpha = value / 100;
+                 // Update background gradient transparency
+                 glassCard.style.background = `linear-gradient(to bottom, rgba(140, 100, 255, ${alpha * 0.85}), rgba(80, 40, 160, ${alpha * 0.8}))`;
+                 // Update box-shadow transparency (adjust values as needed)
+                 glassCard.style.boxShadow = `0 8px 40px 0 rgba(80, 0, 120, ${alpha * 0.06}), 0 1.5px 8px 0 rgba(0,0,0,${alpha * 0.03}), 0 0 ${alpha * 30}px rgba(140, 100, 255, ${alpha * 0.15})`;
+
+                 // Note: Backdrop-filter cannot be easily adjusted by alpha directly, 
+                 // but adjusting the background/shadow alpha gives the main visual effect.
+            }
+
+            // Volume control
+            volumeSlider.addEventListener('input', function() {
+                audio.volume = this.value / 100;
+                if (this.value == 0) {
+                    muteBtn.innerHTML = '<span class="icon">🔇</span>';
+                    isMuted = true;
+                } else {
+                    muteBtn.innerHTML = '<span class="icon">🔊</span>';
+                    isMuted = false;
+                }
+            });
+
+            // Mute toggle
+            muteBtn.addEventListener('click', function() {
+                if (isMuted) {
+                    audio.volume = volumeSlider.value / 100;
+                    this.innerHTML = '<span class="icon">🔊</span>';
+                    isMuted = false;
+                } else {
+                    audio.volume = 0;
+                    this.innerHTML = '<span class="icon">🔇</span>';
+                    isMuted = true;
+                }
+            });
+
+            // Background selection
+            bgOptions.forEach(button => {
+                button.addEventListener('click', function() {
+                    const imageName = this.getAttribute('data-image');
+                    backgroundDiv.style.backgroundImage = `url('images/${imageName}')`;
+                    localStorage.setItem('backgroundImage', imageName);
+                });
+            });
+
+            // Transparency control
+            transparencySlider.addEventListener('input', function() {
+                const transparencyValue = this.value;
+                applyTransparency(transparencyValue);
+                localStorage.setItem('cardTransparency', transparencyValue);
+            });
+
+            // Audio selection
+            audioSelect.addEventListener('change', function() {
+                const selectedAudio = this.value;
+                audio.src = `sounds/${selectedAudio}`;
+                audio.play();
+                localStorage.setItem('backgroundAudio', selectedAudio);
+            });
+
+            // Theme selection
+            themeOptions.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedTheme = this.getAttribute('data-theme');
+                    document.body.setAttribute('data-theme', selectedTheme);
+                    localStorage.setItem('theme', selectedTheme);
+                });
+            });
+
+            // Reset All Settings
+            document.getElementById('mainResetBtn').addEventListener('click', function() {
+                const resetChoice = prompt("Which settings would you like to reset?\nType 'Audio', 'Transparency', 'Theme', or 'All'.").toLowerCase();
+
+                if (resetChoice === 'audio') {
+                    // Reset audio settings
+                    audio.volume = defaultVolume;
+                    volumeSlider.value = defaultVolume * 100;
+                    muteBtn.innerHTML = '<span class="icon">🔊</span>';
+                    isMuted = false;
+                    sessionStorage.removeItem('audioTime');
+                    audio.currentTime = 0;
+                    audioSelect.value = defaultAudio;
+                    audio.src = `sounds/${defaultAudio}`;
+                    localStorage.removeItem('backgroundAudio');
+                    alert("Audio settings reset.");
+
+                } else if (resetChoice === 'transparency') {
+                    // Reset transparency only
+                    transparencySlider.value = defaultTransparency;
+                    applyTransparency(defaultTransparency);
+                    localStorage.removeItem('cardTransparency');
+                    alert("Transparency settings reset.");
+
+                } else if (resetChoice === 'theme') {
+                    // Reset theme
+                    document.body.setAttribute('data-theme', defaultTheme);
+                    localStorage.removeItem('theme');
+                    alert("Theme settings reset.");
+
+                } else if (resetChoice === 'all') {
+                    // Reset audio settings
+                    audio.volume = defaultVolume;
+                    volumeSlider.value = defaultVolume * 100;
+                    muteBtn.innerHTML = '<span class="icon">🔊</span>';
+                    isMuted = false;
+                    sessionStorage.removeItem('audioTime');
+                    audio.currentTime = 0;
+                    audioSelect.value = defaultAudio;
+                    audio.src = `sounds/${defaultAudio}`;
+                    localStorage.removeItem('backgroundAudio');
+
+                    // Reset background image
+                    backgroundDiv.style.backgroundImage = `url('images/${defaultBackground}')`;
+                    localStorage.removeItem('backgroundImage');
+                    document.body.classList.remove('no-background-blur');
+
+                    // Reset transparency
+                    transparencySlider.value = defaultTransparency;
+                    applyTransparency(defaultTransparency);
+                    localStorage.removeItem('cardTransparency');
+
+                    // Reset theme
+                    document.body.setAttribute('data-theme', defaultTheme);
+                    localStorage.removeItem('theme');
+
+                    alert("All settings reset.");
+                } else {
+                    alert("Invalid choice. No settings were reset.");
+                }
+            });
+
+            startAudio();
+            document.addEventListener('click', startAudio, { once: true });
+            document.addEventListener('touchstart', startAudio, { once: true });
+            document.addEventListener('keydown', startAudio, { once: true });
+        });
+    </script>
+</body>
+</html>
