@@ -166,10 +166,10 @@
 
             function applyTransparency(value) {
                  const alpha = value / 100;
-                 // Update background gradient transparency
-                 glassCard.style.background = `linear-gradient(to bottom, rgba(140, 100, 255, ${alpha * 0.85}), rgba(80, 40, 160, ${alpha * 0.8}))`;
-                 // Update box-shadow transparency (adjust values as needed)
-                 glassCard.style.boxShadow = `0 8px 40px 0 rgba(80, 0, 120, ${alpha * 0.06}), 0 1.5px 8px 0 rgba(0,0,0,${alpha * 0.03}), 0 0 ${alpha * 30}px rgba(140, 100, 255, ${alpha * 0.15})`;
+                 // Update background gradient transparency with galactic colors
+                 glassCard.style.background = `linear-gradient(to bottom, rgba(41, 52, 98, ${alpha * 0.85}), rgba(13, 17, 38, ${alpha * 0.8}))`;
+                 // Update box-shadow transparency with space-themed colors
+                 glassCard.style.boxShadow = `0 8px 40px 0 rgba(0, 0, 0, ${alpha * 0.06}), 0 1.5px 8px 0 rgba(0,0,0,${alpha * 0.03}), 0 0 ${alpha * 30}px rgba(41, 52, 98, ${alpha * 0.15})`;
 
                  // Note: Backdrop-filter cannot be easily adjusted by alpha directly, 
                  // but adjusting the background/shadow alpha gives the main visual effect.
