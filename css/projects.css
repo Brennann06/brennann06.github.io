@@ -22,12 +22,12 @@
     font-weight: 600;
     padding: 0.5em 1em;
     border-radius: 999px;
-    background: rgba(60, 50, 90, 0.25);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.25) 0%, rgba(35, 45, 85, 0.25) 100%);
     transition: background 0.2s, transform 0.2s;
 }
 
 .back-btn:hover {
-    background: rgba(160, 68, 255, 0.4);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.4) 0%, rgba(35, 45, 85, 0.4) 100%);
     transform: translateX(-2px);
 }
 
@@ -39,10 +39,10 @@
 }
 
 .project-card {
-    background: rgba(40, 20, 60, 0.2);
+    background: linear-gradient(135deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
     border-radius: 20px;
     padding: 1.5rem;
-    border: 1px solid rgba(180, 70, 255, 0.1);
+    border: 1px solid rgba(65, 85, 200, 0.2);
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(160, 68, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(65, 85, 200, 0.15);
 }
 
 .project-screenshot {
@@ -59,7 +59,7 @@
     object-fit: cover;
     border-radius: 12px;
     margin-bottom: 1rem;
-    border: 1px solid rgba(180, 70, 255, 0.2);
+    border: 1px solid rgba(65, 85, 200, 0.2);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
 }
@@ -90,7 +90,7 @@
 }
 
 .tech-badge {
-    background: rgba(160, 68, 255, 0.2);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.2) 0%, rgba(35, 45, 85, 0.2) 100%);
     color: #fff;
     padding: 0.3em 0.8em;
     border-radius: 999px;
@@ -117,12 +117,12 @@
 }
 
 .github-btn {
-    background: rgba(60, 50, 90, 0.3);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.3) 0%, rgba(35, 45, 85, 0.3) 100%);
     color: #fff;
 }
 
 .live-btn {
-    background: linear-gradient(90deg, rgba(106, 48, 147, 0.55) 0%, rgba(160, 68, 255, 0.55) 100%);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.55) 0%, rgba(35, 45, 85, 0.55) 100%);
     color: #fff;
 }
 
@@ -131,11 +131,11 @@
 }
 
 .github-btn:hover {
-    background: rgba(60, 50, 90, 0.4);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.4) 0%, rgba(35, 45, 85, 0.4) 100%);
 }
 
 .live-btn:hover {
-    background: linear-gradient(90deg, rgba(160, 68, 255, 0.65) 0%, rgba(106, 48, 147, 0.65) 100%);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.65) 0%, rgba(35, 45, 85, 0.65) 100%);
 }
 
 @media (max-width: 768px) {

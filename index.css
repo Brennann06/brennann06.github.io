@@ -52,24 +52,24 @@ Custom Scrollbar Styles (Webkit browsers)
 
 /* Custom Scrollbar Styles (Webkit browsers) */
 &::-webkit-scrollbar {
-    width: 12px; /* Slightly wider scrollbar for better interaction */
+    width: 12px;
 }
 
 &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05); /* Very subtle track background */
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.05) 0%, rgba(35, 45, 85, 0.05) 100%);
     border-radius: 10px;
 }
 
 &::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, rgba(160, 68, 255, 0.7), rgba(106, 48, 147, 0.7)); /* Gradient thumb */
-    border-radius: 10px; /* round the scroll thumb */
-    border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle light border */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    background: linear-gradient(to bottom, rgba(65, 85, 200, 0.7), rgba(35, 45, 85, 0.7));
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 &::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, rgba(160, 68, 255, 0.9), rgba(106, 48, 147, 0.9)); /* Brighter gradient on hover */
+    background: linear-gradient(to bottom, rgba(65, 85, 200, 0.9), rgba(35, 45, 85, 0.9));
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
@@ -272,7 +272,7 @@ Custom Scrollbar Styles (Webkit browsers)
     display: flex;
     align-items: center;
     gap: 0.6em;
-    background: linear-gradient(90deg, rgba(106, 48, 147, 0.55) 0%, rgba(160, 68, 255, 0.55) 100%);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.55) 0%, rgba(35, 45, 85, 0.55) 100%);
     color: #fff;
     border: none;
     border-radius: 999px;
@@ -280,7 +280,7 @@ Custom Scrollbar Styles (Webkit browsers)
     font-size: 1.13rem;
     font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 2px 16px 0 rgba(160, 68, 255, 0.08);
+    box-shadow: 0 2px 16px 0 rgba(65, 85, 200, 0.08);
     transition: background 0.2s, transform 0.2s, box-shadow 0.2s, color 0.2s;
     position: relative;
     overflow: hidden;
@@ -288,10 +288,10 @@ Custom Scrollbar Styles (Webkit browsers)
 }
 
 .icon-btn:hover, .icon-btn:focus {
-    background: linear-gradient(90deg, rgba(160, 68, 255, 0.65) 0%, rgba(106, 48, 147, 0.65) 100%);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.65) 0%, rgba(35, 45, 85, 0.65) 100%);
     color: #fff;
     transform: translateY(-2px) scale(1.045);
-    box-shadow: 0 4px 24px rgba(160, 68, 255, 0.15);
+    box-shadow: 0 4px 24px rgba(65, 85, 200, 0.15);
 }
 
 .icon {
@@ -425,7 +425,7 @@ Custom Scrollbar Styles (Webkit browsers)
 .settings-content {
     margin-top: 1rem;
     padding: 1rem;
-    background: linear-gradient(90deg, rgba(106, 48, 147, 0.55) 0%, rgba(160, 68, 255, 0.55) 100%);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.55) 0%, rgba(35, 45, 85, 0.55) 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
     backdrop-filter: blur(10px);
@@ -441,7 +441,7 @@ Custom Scrollbar Styles (Webkit browsers)
     justify-content: space-between;
     gap: 0.5rem;
     padding: 0.6rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #fff;
@@ -454,7 +454,7 @@ Custom Scrollbar Styles (Webkit browsers)
 }
 
 .settings-menu-item:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.15) 0%, rgba(35, 45, 85, 0.15) 100%);
     transform: translateY(-2px);
 }
 
@@ -471,7 +471,7 @@ Custom Scrollbar Styles (Webkit browsers)
 .background-controls {
     margin-top: 0.75rem;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.05) 0%, rgba(35, 45, 85, 0.05) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     backdrop-filter: blur(8px);
@@ -567,7 +567,7 @@ Custom Scrollbar Styles (Webkit browsers)
 }
 
 .control-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     cursor: pointer;
@@ -579,7 +579,7 @@ Custom Scrollbar Styles (Webkit browsers)
 
 .control-btn:hover {
     transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.2) 0%, rgba(35, 45, 85, 0.2) 100%);
 }
 
 @media (max-width: 768px) {
@@ -624,7 +624,7 @@ Custom Scrollbar Styles (Webkit browsers)
 .audio-selection {
     margin-top: 15px;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.08) 0%, rgba(35, 45, 85, 0.08) 100%);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -632,7 +632,7 @@ Custom Scrollbar Styles (Webkit browsers)
 }
 
 .audio-selection:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.12) 0%, rgba(35, 45, 85, 0.12) 100%);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -649,8 +649,8 @@ Custom Scrollbar Styles (Webkit browsers)
     width: 100%;
     padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(65, 85, 200, 0.15);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
     color: #fff;
     cursor: pointer;
     font-size: 0.95rem;
@@ -665,16 +665,16 @@ Custom Scrollbar Styles (Webkit browsers)
 }
 
 .audio-select:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.2) 0%, rgba(35, 45, 85, 0.2) 100%);
+    border-color: rgba(65, 85, 200, 0.25);
     transform: translateY(-1px);
     color: #fff;
 }
 
 .audio-select:focus {
     outline: none;
-    border-color: rgba(160, 68, 255, 0.5);
-    box-shadow: 0 0 0 2px rgba(160, 68, 255, 0.2);
+    border-color: rgba(65, 85, 200, 0.5);
+    box-shadow: 0 0 0 2px rgba(65, 85, 200, 0.2);
     color: #fff;
 }
 
@@ -722,7 +722,7 @@ Custom Scrollbar Styles (Webkit browsers)
     padding: 12px 20px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(135deg, rgba(65, 85, 200, 0.1), rgba(35, 45, 85, 0.05));
     color: var(--text-color, #fff);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -748,7 +748,7 @@ Custom Scrollbar Styles (Webkit browsers)
 }
 
 .theme-option:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+    background: linear-gradient(135deg, rgba(65, 85, 200, 0.15), rgba(35, 45, 85, 0.08));
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     border-color: rgba(255, 255, 255, 0.2);
