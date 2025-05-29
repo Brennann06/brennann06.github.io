@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brennan's Skills</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../css/skills.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../transitions.js"></script>
+</head>
+<body>
+    <div class="background"></div>
+    <audio id="backgroundMusic" autoplay loop preload="auto">
+        <source src="../sounds/background.wav" type="audio/wav">
+    </audio>
+    <main class="glass-card skills-container">
+        <div class="header">
+            <a href="../index.html" class="back-btn"><span class="icon">←</span> Back</a>
+            <h1 class="name">My Skills</h1>
+        </div>
+        
+        <div class="skills-grid">
+            <!-- Frontend Skills -->
+            <div class="skill-category">
+                <h2 class="category-title">Frontend Development</h2>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span class="skill-name">HTML5</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">CSS3</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">JavaScript</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">React</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Skills -->
+            <div class="skill-category">
+                <h2 class="category-title">Backend Development</h2>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span class="skill-name">Node.js</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Python</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Django</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Express.js</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database Skills -->
+            <div class="skill-category">
+                <h2 class="category-title">Databases</h2>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span class="skill-name">MongoDB</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">PostgreSQL</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">MySQL</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools & Others -->
+            <div class="skill-category">
+                <h2 class="category-title">Tools & Others</h2>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <span class="skill-name">Git</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Docker</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">AWS</span>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('backgroundMusic');
+            const backgroundDiv = document.querySelector('.background');
+            
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+            }
+            
+            // Load saved background image preference
+            const savedBackground = localStorage.getItem('backgroundImage');
+            if (savedBackground) {
+                backgroundDiv.style.backgroundImage = `url('../images/${savedBackground}')`;
+                if (savedBackground === 'background2.png') {
+                    backgroundDiv.classList.add('background2');
+                } else {
+                    backgroundDiv.classList.remove('background2');
+                }
+            }
+            
+            // Load saved time if it exists
+            const savedTime = sessionStorage.getItem('audioTime');
+            if (savedTime) {
+                audio.currentTime = parseFloat(savedTime);
+            }
+            
+            function startAudio() {
+                audio.volume = 0.2;
+                let playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log("Audio started playing");
+                    })
+                    .catch(error => {
+                        console.log("Audio playback failed:", error);
+                        document.body.addEventListener('click', function playOnClick() {
+                            audio.play();
+                            document.body.removeEventListener('click', playOnClick);
+                        }, { once: true });
+                    });
+                }
+            }
+
+            // Save time periodically
+            setInterval(() => {
+                sessionStorage.setItem('audioTime', audio.currentTime);
+            }, 1000);
+
+            startAudio();
+            document.addEventListener('click', startAudio, { once: true });
+            document.addEventListener('touchstart', startAudio, { once: true });
+            document.addEventListener('keydown', startAudio, { once: true });
+        });
+    </script>
+</body>
+</html> 
