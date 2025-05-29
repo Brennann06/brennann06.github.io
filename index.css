@@ -23,6 +23,10 @@ body {
 
     /* Custom Cursor */
     cursor: url('images/cursor.png'), auto; /* Using cursor.png from images folder with auto fallback */
+
+    /* Add page transition */
+    opacity: 1;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /*
@@ -85,6 +89,7 @@ Custom Scrollbar Styles (Webkit browsers)
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     animation: backgroundPan 60s linear infinite;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes backgroundPan {
@@ -128,6 +133,18 @@ Custom Scrollbar Styles (Webkit browsers)
     margin: 2rem;
     animation: fadeIn 1.2s cubic-bezier(.39,.575,.565,1) both,
                glowPulse 4s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card.page-transition {
+    transform: translateY(30px);
+    opacity: 0;
+}
+
+.glass-card.page-transition-back {
+    transform: translateY(-30px);
+    opacity: 0;
 }
 
 /* .no-background-blur .glass-card {
@@ -772,4 +789,23 @@ Custom Scrollbar Styles (Webkit browsers)
 [data-theme="dark"] .theme-option:hover {
     background: linear-gradient(135deg, rgba(70, 70, 90, 0.9), rgba(50, 50, 70, 0.9));
     border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Add page transition classes */
+.page-transition {
+    opacity: 0;
+}
+
+.page-transitioning {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Add transition for the background */
+.background.page-transition {
+    opacity: 0;
+}
+
+.background.page-transition-back {
+    opacity: 0;
 } 
