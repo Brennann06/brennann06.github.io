@@ -11,9 +11,14 @@
 </head>
 <body>
     <div class="background"></div>
+    <div id="particles-js"></div>
     <audio id="backgroundMusic" autoplay loop preload="auto">
         <source src="sounds/background.wav" type="audio/wav">
     </audio>
+    <div class="settings-notification">
+        <span class="icon">✅</span>
+        <span class="message">Settings saved!</span>
+    </div>
     <main class="glass-card">
         <div class="profile-block">
             <img src="images/profile.png" alt="Profile picture of Brennan" class="profile-pic">
@@ -78,8 +83,57 @@
             </div>
         </details>
     </main>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particles
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#ffffff' },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#ffffff',
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 0.5 } },
+                        push: { particles_nb: 4 }
+                    }
+                },
+                retina_detect: true
+            });
+
             // Grab all the elements we need to work with
             const audio = document.getElementById('backgroundMusic');
             const volumeSlider = document.getElementById('volume');
@@ -90,8 +144,27 @@
             const transparencySlider = document.getElementById('cardTransparency');
             const audioSelect = document.getElementById('audioSelect');
             const themeOptions = document.querySelectorAll('.theme-option');
+            const notification = document.querySelector('.settings-notification');
 
             let isMuted = false;
+            let notificationTimeout;
+
+            // Function to show settings notification
+            function showNotification(message) {
+                // Clear any existing timeout
+                if (notificationTimeout) {
+                    clearTimeout(notificationTimeout);
+                }
+
+                // Update message and show notification
+                notification.querySelector('.message').textContent = message;
+                notification.classList.add('show');
+
+                // Hide notification after 3 seconds
+                notificationTimeout = setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
 
             // Default values for all settings
             const defaultVolume = 0.2;
@@ -188,6 +261,7 @@
                     muteBtn.innerHTML = '<span class="icon">🔊</span>';
                     isMuted = false;
                 }
+                showNotification('Volume adjusted');
             });
 
             // Mute button toggle
@@ -196,10 +270,12 @@
                     audio.volume = volumeSlider.value / 100;
                     this.innerHTML = '<span class="icon">🔊</span>';
                     isMuted = false;
+                    showNotification('Sound unmuted');
                 } else {
                     audio.volume = 0;
                     this.innerHTML = '<span class="icon">🔇</span>';
                     isMuted = true;
+                    showNotification('Sound muted');
                 }
             });
 
@@ -209,6 +285,7 @@
                     const imageName = this.getAttribute('data-image');
                     backgroundDiv.style.backgroundImage = `url('images/${imageName}')`;
                     localStorage.setItem('backgroundImage', imageName);
+                    showNotification('Background changed');
                 });
             });
 
@@ -217,6 +294,7 @@
                 const transparencyValue = this.value;
                 applyTransparency(transparencyValue);
                 localStorage.setItem('cardTransparency', transparencyValue);
+                showNotification('Transparency adjusted');
             });
 
             // Music track switcher
@@ -225,6 +303,7 @@
                 audio.src = `sounds/${selectedAudio}`;
                 audio.play();
                 localStorage.setItem('backgroundAudio', selectedAudio);
+                showNotification('Music track changed');
             });
 
             // Theme switcher
@@ -233,6 +312,7 @@
                     const selectedTheme = this.getAttribute('data-theme');
                     document.body.setAttribute('data-theme', selectedTheme);
                     localStorage.setItem('theme', selectedTheme);
+                    showNotification('Theme changed');
                 });
             });
 
@@ -251,20 +331,20 @@
                     audioSelect.value = defaultAudio;
                     audio.src = `sounds/${defaultAudio}`;
                     localStorage.removeItem('backgroundAudio');
-                    alert("Audio settings reset.");
+                    showNotification('Audio settings reset');
 
                 } else if (resetChoice === 'transparency') {
                     // Reset transparency only
                     transparencySlider.value = defaultTransparency;
                     applyTransparency(defaultTransparency);
                     localStorage.removeItem('cardTransparency');
-                    alert("Transparency settings reset.");
+                    showNotification('Transparency settings reset');
 
                 } else if (resetChoice === 'theme') {
                     // Reset theme
                     document.body.setAttribute('data-theme', defaultTheme);
                     localStorage.removeItem('theme');
-                    alert("Theme settings reset.");
+                    showNotification('Theme settings reset');
 
                 } else if (resetChoice === 'all') {
                     // Reset audio settings
@@ -292,9 +372,9 @@
                     document.body.setAttribute('data-theme', defaultTheme);
                     localStorage.removeItem('theme');
 
-                    alert("All settings reset.");
+                    showNotification('All settings reset');
                 } else {
-                    alert("Invalid choice. No settings were reset.");
+                    showNotification('No settings were reset');
                 }
             });
 
