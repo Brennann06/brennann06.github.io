@@ -80,6 +80,7 @@
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Grab all the elements we need to work with
             const audio = document.getElementById('backgroundMusic');
             const volumeSlider = document.getElementById('volume');
             const muteBtn = document.getElementById('muteBtn');
@@ -92,40 +93,40 @@
 
             let isMuted = false;
 
+            // Default values for all settings
             const defaultVolume = 0.2;
             const defaultBackground = 'background.png';
             const defaultTransparency = 85;
             const defaultAudio = 'background.wav';
             const defaultTheme = 'default';
             
-            // Load saved time if it exists
+            // Pick up where the music left off if we had to reload the page
             const savedTime = sessionStorage.getItem('audioTime');
             if (savedTime) {
                 audio.currentTime = parseFloat(savedTime);
             }
 
-            // Load saved background image preference and transparency
+            // Load the user's background preference or use default
             const savedBackground = localStorage.getItem('backgroundImage');
             if (savedBackground) {
                 backgroundDiv.style.backgroundImage = `url('images/${savedBackground}')`;
             } else {
-                // Apply default background image if no saved value
                 backgroundDiv.style.backgroundImage = `url('images/${defaultBackground}')`;
                 document.body.classList.remove('no-background-blur');
             }
 
+            // Load the user's transparency preference or use default
             const savedTransparency = localStorage.getItem('cardTransparency');
             if (savedTransparency !== null) {
                 const transparencyValue = parseInt(savedTransparency, 10);
                 transparencySlider.value = transparencyValue;
                 applyTransparency(transparencyValue);
             } else {
-                 // Apply default transparency if no saved value
-                 transparencySlider.value = defaultTransparency;
-                 applyTransparency(defaultTransparency);
+                transparencySlider.value = defaultTransparency;
+                applyTransparency(defaultTransparency);
             }
 
-            // Load saved audio preference
+            // Load the user's audio preference or use default
             const savedAudio = localStorage.getItem('backgroundAudio');
             if (savedAudio) {
                 audioSelect.value = savedAudio;
@@ -135,7 +136,7 @@
                 audio.src = `sounds/${defaultAudio}`;
             }
 
-            // Load saved theme preference
+            // Load the user's theme preference or use default
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 document.body.setAttribute('data-theme', savedTheme);
@@ -143,21 +144,23 @@
                 document.body.setAttribute('data-theme', defaultTheme);
             }
 
-            // Save time periodically
+            // Keep track of where we are in the music in case of page reload
             setInterval(() => {
                 sessionStorage.setItem('audioTime', audio.currentTime);
             }, 1000);
 
+            // Try to start the music, with fallback for browsers that block autoplay
             function startAudio() {
                 audio.volume = volumeSlider.value / 100;
                 let playPromise = audio.play();
                 
                 if (playPromise !== undefined) {
                     playPromise.then(_ => {
-                        console.log("Audio started playing");
+                        console.log("Music started playing");
                     })
                     .catch(error => {
-                        console.log("Audio playback failed:", error);
+                        console.log("Couldn't start music automatically:", error);
+                        // Some browsers block autoplay - wait for user interaction
                         document.body.addEventListener('click', function playOnClick() {
                             audio.play();
                             document.body.removeEventListener('click', playOnClick);
@@ -166,18 +169,16 @@
                 }
             }
 
+            // Update the glass card's transparency and glow effects
             function applyTransparency(value) {
-                 const alpha = value / 100;
-                 // Update background gradient transparency with galactic colors
-                 glassCard.style.background = `linear-gradient(to bottom, rgba(41, 52, 98, ${alpha * 0.85}), rgba(13, 17, 38, ${alpha * 0.8}))`;
-                 // Update box-shadow transparency with space-themed colors
-                 glassCard.style.boxShadow = `0 8px 40px 0 rgba(0, 0, 0, ${alpha * 0.06}), 0 1.5px 8px 0 rgba(0,0,0,${alpha * 0.03}), 0 0 ${alpha * 30}px rgba(41, 52, 98, ${alpha * 0.15})`;
-
-                 // Note: Backdrop-filter cannot be easily adjusted by alpha directly, 
-                 // but adjusting the background/shadow alpha gives the main visual effect.
+                const alpha = value / 100;
+                // Make the card more or less see-through
+                glassCard.style.background = `linear-gradient(to bottom, rgba(41, 52, 98, ${alpha * 0.85}), rgba(13, 17, 38, ${alpha * 0.8}))`;
+                // Adjust the glow effect to match
+                glassCard.style.boxShadow = `0 8px 40px 0 rgba(0, 0, 0, ${alpha * 0.06}), 0 1.5px 8px 0 rgba(0,0,0,${alpha * 0.03}), 0 0 ${alpha * 30}px rgba(41, 52, 98, ${alpha * 0.15})`;
             }
 
-            // Volume control
+            // Volume slider controls
             volumeSlider.addEventListener('input', function() {
                 audio.volume = this.value / 100;
                 if (this.value == 0) {
@@ -189,7 +190,7 @@
                 }
             });
 
-            // Mute toggle
+            // Mute button toggle
             muteBtn.addEventListener('click', function() {
                 if (isMuted) {
                     audio.volume = volumeSlider.value / 100;
@@ -202,7 +203,7 @@
                 }
             });
 
-            // Background selection
+            // Background image switcher
             bgOptions.forEach(button => {
                 button.addEventListener('click', function() {
                     const imageName = this.getAttribute('data-image');
@@ -211,14 +212,14 @@
                 });
             });
 
-            // Transparency control
+            // Transparency slider controls
             transparencySlider.addEventListener('input', function() {
                 const transparencyValue = this.value;
                 applyTransparency(transparencyValue);
                 localStorage.setItem('cardTransparency', transparencyValue);
             });
 
-            // Audio selection
+            // Music track switcher
             audioSelect.addEventListener('change', function() {
                 const selectedAudio = this.value;
                 audio.src = `sounds/${selectedAudio}`;
@@ -226,7 +227,7 @@
                 localStorage.setItem('backgroundAudio', selectedAudio);
             });
 
-            // Theme selection
+            // Theme switcher
             themeOptions.forEach(button => {
                 button.addEventListener('click', function() {
                     const selectedTheme = this.getAttribute('data-theme');
@@ -235,12 +236,12 @@
                 });
             });
 
-            // Reset All Settings
+            // Settings reset handler
             document.getElementById('mainResetBtn').addEventListener('click', function() {
                 const resetChoice = prompt("Which settings would you like to reset?\nType 'Audio', 'Transparency', 'Theme', or 'All'.").toLowerCase();
 
                 if (resetChoice === 'audio') {
-                    // Reset audio settings
+                    // Reset all audio-related settings
                     audio.volume = defaultVolume;
                     volumeSlider.value = defaultVolume * 100;
                     muteBtn.innerHTML = '<span class="icon">🔊</span>';

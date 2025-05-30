@@ -1,8 +1,10 @@
+/* Main container for the projects page */
 .projects-container {
     max-width: 900px !important;
     padding: 2rem !important;
 }
 
+/* Header section with back button */
 .header {
     display: flex;
     align-items: center;
@@ -11,6 +13,7 @@
     position: relative;
 }
 
+/* Back button styling with hover effect */
 .back-btn {
     position: absolute;
     left: 0;
@@ -31,6 +34,7 @@
     transform: translateX(-2px);
 }
 
+/* Grid layout for project cards */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -38,6 +42,7 @@
     padding: 0.5rem;
 }
 
+/* Individual project card with hover effect */
 .project-card {
     background: linear-gradient(135deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
     border-radius: 20px;
@@ -53,6 +58,7 @@
     box-shadow: 0 8px 30px rgba(65, 85, 200, 0.15);
 }
 
+/* Project screenshot with hover zoom effect */
 .project-screenshot {
     width: 100%;
     height: 200px;
@@ -68,6 +74,7 @@
     transform: scale(1.02);
 }
 
+/* Project title text */
 .project-title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -75,6 +82,7 @@
     color: #fff;
 }
 
+/* Project description text */
 .project-description {
     color: #e0e0e0;
     font-size: 1rem;
@@ -82,6 +90,7 @@
     margin-bottom: 1.2rem;
 }
 
+/* Container for technology badges */
 .project-tech {
     display: flex;
     flex-wrap: wrap;
@@ -89,6 +98,7 @@
     margin-bottom: 1.2rem;
 }
 
+/* Individual technology badge */
 .tech-badge {
     background: linear-gradient(90deg, rgba(65, 85, 200, 0.2) 0%, rgba(35, 45, 85, 0.2) 100%);
     color: #fff;
@@ -98,11 +108,13 @@
     font-weight: 500;
 }
 
+/* Container for project action buttons */
 .project-links {
     display: flex;
     gap: 1rem;
 }
 
+/* Base styles for project buttons */
 .project-btn {
     flex: 1;
     display: flex;
@@ -116,16 +128,19 @@
     transition: transform 0.2s, background 0.2s;
 }
 
+/* GitHub button specific styles */
 .github-btn {
     background: linear-gradient(90deg, rgba(65, 85, 200, 0.3) 0%, rgba(35, 45, 85, 0.3) 100%);
     color: #fff;
 }
 
+/* Live demo button specific styles */
 .live-btn {
     background: linear-gradient(90deg, rgba(65, 85, 200, 0.55) 0%, rgba(35, 45, 85, 0.55) 100%);
     color: #fff;
 }
 
+/* Button hover effects */
 .project-btn:hover {
     transform: translateY(-2px);
 }
@@ -138,6 +153,7 @@
     background: linear-gradient(90deg, rgba(65, 85, 200, 0.65) 0%, rgba(35, 45, 85, 0.65) 100%);
 }
 
+/* Mobile-friendly adjustments */
 @media (max-width: 768px) {
     .projects-container {
         padding: 1.5rem !important;

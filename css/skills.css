@@ -1,8 +1,10 @@
+/* Main container for the skills page */
 .skills-container {
     max-width: 900px !important;
     padding: 2rem !important;
 }
 
+/* Header section with back button */
 .header {
     display: flex;
     align-items: center;
@@ -11,6 +13,7 @@
     position: relative;
 }
 
+/* Back button styling with hover effect */
 .back-btn {
     position: absolute;
     left: 0;
@@ -31,6 +34,7 @@
     transform: translateX(-2px);
 }
 
+/* Grid layout for skill categories */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -38,6 +42,7 @@
     padding: 0.5rem;
 }
 
+/* Individual skill category card */
 .skill-category {
     background: linear-gradient(135deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
     border-radius: 20px;
@@ -51,6 +56,7 @@
     box-shadow: 0 8px 30px rgba(65, 85, 200, 0.15);
 }
 
+/* Category title styling */
 .category-title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -60,18 +66,21 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* List of skills within each category */
 .skills-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+/* Individual skill item container */
 .skill-item {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
+/* Skill name text */
 .skill-name {
     font-size: 1.1rem;
     font-weight: 600;
@@ -79,6 +88,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Progress bar background */
 .skill-level {
     width: 100%;
     height: 8px;
@@ -88,6 +98,7 @@
     position: relative;
 }
 
+/* Progress bar fill with gradient */
 .skill-progress {
     height: 100%;
     background: linear-gradient(90deg, rgba(65, 85, 200, 0.8) 0%, rgba(35, 45, 85, 0.8) 100%);
@@ -97,6 +108,7 @@
     overflow: hidden;
 }
 
+/* Shimmer effect on progress bar */
 .skill-progress::after {
     content: '';
     position: absolute;
@@ -113,6 +125,7 @@
     animation: shimmer 2s infinite;
 }
 
+/* Shimmer animation keyframes */
 @keyframes shimmer {
     0% {
         transform: translateX(-100%);
@@ -122,7 +135,7 @@
     }
 }
 
-/* Dark theme specific styles */
+/* Dark theme overrides */
 [data-theme="dark"] .skill-category {
     background: linear-gradient(135deg, rgba(40, 40, 60, 0.8) 0%, rgba(20, 20, 40, 0.8) 100%);
     border-color: rgba(255, 255, 255, 0.1);
@@ -136,7 +149,7 @@
     background: linear-gradient(90deg, rgba(65, 85, 200, 0.6) 0%, rgba(35, 45, 85, 0.6) 100%);
 }
 
-/* Responsive styles */
+/* Mobile-friendly adjustments */
 @media (max-width: 768px) {
     .skills-container {
         padding: 1.5rem !important;
