@@ -1,0 +1,269 @@
+/* 404 Page Styles */
+
+/* Overall body and background */
+body {
+    overflow: hidden; /* Prevent scrollbars */
+    background: #1a1a2e; /* Dark space background */
+    color: #ffffff; /* Default text color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.background,
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Below everything */
+}
+
+.background {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a1a 100%);
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden; /* Contain stars */
+}
+
+/* 404 Container */
+.error-main-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */ /* Centering handled by body flex */
+    /* min-height: 100vh; */ /* Height handled by body flex */
+    padding: 2rem;
+    box-sizing: border-box;
+     /* Ensure it doesn't exceed viewport height */
+    max-height: 100vh;
+    overflow-y: auto; /* Add scroll if content overflows */
+}
+
+/* The big 404 number */
+.error-code {
+    font-size: 15rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0;
+    background: linear-gradient(45deg, #ff00aa, #00f0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+    animation: floatCode 8s ease-in-out infinite;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(50px) scale(0.8);
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+/* Animation for the 404 code */
+@keyframes floatCode {
+    0% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.02);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+ /* Animation for fade in */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.error-code {
+    animation-name: fadeIn, floatCode;
+    animation-duration: 1s, 8s;
+    animation-timing-function: ease-out, ease-in-out;
+    animation-delay: 0.5s, 0.5s;
+    animation-fill-mode: forwards, infinite;
+}
+
+/* Card for message and button */
+.error-card {
+    max-width: 400px;
+    width: 95%;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.08); /* More transparent glass */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1s;
+}
+
+.error-message {
+    font-size: 1.6rem;
+    margin: 0.5rem 0;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+
+.error-description {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #b0b0b0;
+}
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(45deg, #4ecdc4, #1a535f);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.home-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(45deg, #4ecdc4, #58a7a0);
+}
+
+.home-button .icon {
+    font-size: 1.3rem;
+}
+
+/* Astronaut */
+.astronaut {
+    width: 250px;
+    height: 250px;
+    margin: 2rem auto; /* Adjust margin */
+    background-image: url('images/astronaut.png'); /* Ensure this image exists */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: floatAstronaut 7s ease-in-out infinite;
+    z-index: 2; /* Above the card */
+    opacity: 0;
+    transform: translateY(-50px);
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+    animation-name: fadeIn, floatAstronaut; /* Apply both animations */
+    animation-duration: 1s, 7s; /* Fade in duration, float duration */
+    animation-timing-function: ease-out, ease-in-out;
+    animation-delay: 1.2s, 1.2s;
+    animation-fill-mode: forwards, infinite;
+}
+
+ @keyframes floatAstronaut {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(-5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+/* Stars - More dynamic */
+.star {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: twinkle var(--duration) ease-in-out infinite alternate, moveStar var(--duration) linear infinite;
+    opacity: 0;
+    width: var(--size);
+    height: var(--size);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes moveStar {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(var(--move-x), var(--move-y));
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 10rem;
+    }
+    .astronaut {
+        width: 200px;
+        height: 200px;
+    }
+    .error-message {
+        font-size: 1.4rem;
+    }
+     .error-description {
+        font-size: 1rem;
+    }
+    .home-button {
+        padding: 0.7rem 1.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-code {
+        font-size: 7rem;
+    }
+     .astronaut {
+        width: 150px;
+        height: 150px;
+    }
+    .error-card {
+        padding: 1rem;
+    }
+    .error-message {
+        font-size: 1.2rem;
+    }
+     .error-description {
+        font-size: 0.9rem;
+    }
+     .home-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+} 

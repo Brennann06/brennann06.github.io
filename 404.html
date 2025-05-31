@@ -3,115 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
+    <title>404 - Lost in Space</title>
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="js/security.js"></script>
     <script src="transitions.js"></script>
     <script src="js/audio.js"></script>
-    <style>
-        .error-container {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .error-code {
-            font-size: 8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-            line-height: 1;
-        }
-
-        .error-message {
-            font-size: 1.5rem;
-            margin: 1rem 0 2rem;
-            color: var(--text-color);
-        }
-
-        .error-description {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-        }
-
-        .home-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .home-button:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .home-button .icon {
-            font-size: 1.2rem;
-        }
-
-        .astronaut {
-            width: 200px;
-            height: 200px;
-            margin: 2rem auto;
-            background-image: url('images/astronaut.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-        }
-
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-            opacity: 0;
-        }
-
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/404.css">
 </head>
 <body>
     <div class="background"></div>
@@ -120,10 +19,10 @@
     <audio id="backgroundMusic" autoplay loop preload="auto">
         <source src="sounds/background.wav" type="audio/wav">
     </audio>
-    <main class="glass-card">
-        <div class="error-container">
-            <div class="astronaut"></div>
-            <h1 class="error-code">404</h1>
+    <div class="error-main-container">
+        <div class="astronaut"></div> <!-- Astronaut placed above the card visually -->
+        <h1 class="error-code">404</h1>
+        <div class="error-card">
             <p class="error-message">Houston, we have a problem!</p>
             <p class="error-description">The page you're looking for seems to have drifted into space.</p>
             <a href="index.html" class="home-button">
@@ -131,66 +30,74 @@
                 Return to Earth
             </a>
         </div>
-    </main>
+    </div>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // Create stars
         function createStars() {
             const starsContainer = document.querySelector('.stars');
-            const starCount = 50;
+            const starCount = 80; // Increased star count
 
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 
                 // Random position
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
                 
                 // Random size
-                const size = Math.random() * 3;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
+                const size = Math.random() * 2 + 1; // Size between 1 and 3
+                star.style.setProperty('--size', `${size}px`);
                 
                 // Random animation duration
-                star.style.setProperty('--duration', `${2 + Math.random() * 3}s`);
+                star.style.setProperty('--duration', `${2 + Math.random() * 4}s`); // Duration between 2 and 6s
                 
-                // Random delay
+                // Random animation delay
                 star.style.animationDelay = `${Math.random() * 5}s`;
-                
+
+                // Random movement for parallax effect
+                const moveX = (Math.random() - 0.5) * 50; // Move up to +/- 25px
+                const moveY = (Math.random() - 0.5) * 50; // Move up to +/- 25px
+                star.style.setProperty('--move-x', `${moveX}px`);
+                star.style.setProperty('--move-y', `${moveY}px`);
+
                 starsContainer.appendChild(star);
             }
         }
 
-        // Initialize particles
+        // Initialize particles (ensure this is still desired)
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             
+            // particlesJS initialization (adjust as needed or remove if not wanted)
             particlesJS('particles-js', {
                 particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: '#ffffff' },
+                    number: { value: 100, density: { enable: true, value_area: 1000 } },
+                    color: { value: '#b2e0ff' }, // Lighter color for contrast
                     shape: { type: 'circle' },
                     opacity: {
-                        value: 0.5,
+                        value: 0.6,
                         random: true,
-                        anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                        anim: { enable: true, speed: 0.8, opacity_min: 0.2, sync: false }
                     },
                     size: {
-                        value: 3,
+                        value: 4,
                         random: true,
-                        anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                        anim: { enable: true, speed: 1.5, size_min: 0.5, sync: false }
                     },
                     line_linked: {
                         enable: true,
-                        distance: 150,
-                        color: '#ffffff',
-                        opacity: 0.4,
+                        distance: 120,
+                        color: '#b2e0ff',
+                        opacity: 0.5,
                         width: 1
                     },
                     move: {
                         enable: true,
-                        speed: 2,
+                        speed: 1.5,
                         direction: 'none',
                         random: true,
                         straight: false,
@@ -201,18 +108,22 @@
                 interactivity: {
                     detect_on: 'canvas',
                     events: {
-                        onhover: { enable: true, mode: 'grab' },
+                        onhover: { enable: true, mode: 'repulse' }, // Repulse effect on hover
                         onclick: { enable: true, mode: 'push' },
                         resize: true
                     },
                     modes: {
-                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        repulse: { distance: 100, duration: 0.4 },
                         push: { particles_nb: 4 }
                     }
                 },
                 retina_detect: true
             });
         });
+
+        // Security script is included in the head
+        // Audio script is included in the head
+        // Transitions script is included in the head
     </script>
 </body>
 </html> 
