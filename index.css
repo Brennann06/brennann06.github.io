@@ -978,4 +978,200 @@ html {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
                 0 2px 8px rgba(0, 0, 0, 0.2),
                 inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Add animation disable class */
+.no-animations * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+}
+
+.no-animations .background {
+    animation: none !important;
+    transition: none !important;
+}
+
+.no-animations .glass-card {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+}
+
+.no-animations .rainbow-badge,
+.no-animations .pronouns {
+    animation: none !important;
+    background-position: 0% 50% !important;
+}
+
+.no-animations .icon-btn:hover,
+.no-animations .glass-card:hover,
+.no-animations .profile-pic:hover,
+.no-animations .other-btn:hover,
+.no-animations .settings-menu-item:hover,
+.no-animations .bg-option:hover,
+.no-animations .theme-option:hover,
+.no-animations .audio-select:hover,
+.no-animations .control-btn:hover {
+    transform: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+}
+
+.no-animations .settings-btn .arrow,
+.no-animations .settings-menu-item .arrow {
+    transition: none !important;
+    transform: none !important;
+}
+
+.no-animations .settings-panel[open] .arrow {
+    transform: none !important;
+}
+
+.no-animations .settings-notification {
+    transition: none !important;
+    transform: none !important;
+}
+
+.no-animations .settings-notification.show {
+    transform: none !important;
+}
+
+.no-animations .volume-slider::-webkit-slider-thumb:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.no-animations .theme-option::before {
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+.no-animations .theme-option:hover::before {
+    opacity: 0 !important;
+}
+
+.no-animations .page-transition,
+.no-animations .page-transitioning,
+.no-animations .background.page-transition,
+.no-animations .background.page-transition-back {
+    transition: none !important;
+    opacity: 1 !important;
+}
+
+/* Disable particles */
+.no-animations #particles-js {
+    display: none !important;
+}
+
+/* Disable skill progress animations */
+.no-animations .skill-progress {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Disable all hover effects */
+.no-animations *:hover {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Disable all transitions */
+.no-animations * {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+}
+
+/* Disable all transforms */
+.no-animations * {
+    transform: none !important;
+    transform-style: flat !important;
+    perspective: none !important;
+}
+
+/* Disable all animations */
+.no-animations * {
+    animation: none !important;
+    animation-play-state: paused !important;
+    animation-fill-mode: none !important;
+}
+
+/* Disable all transitions */
+.no-animations * {
+    transition: none !important;
+    transition-property: none !important;
+    transition-duration: 0s !important;
+    transition-timing-function: none !important;
+    transition-delay: 0s !important;
+}
+
+/* Add animation toggle to settings panel */
+.animation-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.1) 0%, rgba(35, 45, 85, 0.1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    width: 100%;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+.animation-control:hover {
+    background: linear-gradient(90deg, rgba(65, 85, 200, 0.15) 0%, rgba(35, 45, 85, 0.15) 100%);
+    transform: translateY(-2px);
+}
+
+.animation-control .toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.animation-control .toggle::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+}
+
+.animation-control.active .toggle {
+    background: rgba(65, 85, 200, 0.8);
+}
+
+.animation-control.active .toggle::before {
+    transform: translateX(20px);
+}
+
+/* Dark theme adjustments for animation control */
+[data-theme="dark"] .animation-control {
+    background: rgba(60, 60, 80, 0.8);
+}
+
+[data-theme="dark"] .animation-control:hover {
+    background: rgba(70, 70, 90, 0.9);
+}
+
+[data-theme="dark"] .animation-control .toggle {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .animation-control.active .toggle {
+    background: rgba(65, 85, 200, 0.9);
 } 

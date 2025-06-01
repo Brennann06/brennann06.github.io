@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultTransparency = 85;
     const defaultAudio = 'background.wav';
     const defaultTheme = 'default';
+    const defaultAnimations = true;
 
     // Grab all the elements we need to work with
     const audio = document.getElementById('backgroundMusic');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const audioSelect = document.getElementById('audioSelect');
     const themeOptions = document.querySelectorAll('.theme-option');
     const notification = document.querySelector('.settings-notification');
+    const animationControl = document.querySelector('.animation-control');
 
     let isMuted = false;
     let notificationTimeout;
@@ -41,6 +43,49 @@ document.addEventListener('DOMContentLoaded', function() {
         notificationTimeout = setTimeout(() => {
             notification.classList.remove('show');
         }, 3000);
+    }
+
+    // Function to toggle animations
+    function toggleAnimations(enabled) {
+        if (enabled) {
+            document.body.classList.remove('no-animations');
+            if (animationControl) {
+                animationControl.classList.remove('active');
+            }
+            // Re-enable particles
+            if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                window.pJSDom[0].pJS.fn.particlesStart();
+            }
+            // Re-enable any other dynamic elements
+            document.querySelectorAll('.skill-progress').forEach(progress => {
+                progress.style.animation = '';
+            });
+        } else {
+            document.body.classList.add('no-animations');
+            if (animationControl) {
+                animationControl.classList.add('active');
+            }
+            // Disable particles
+            if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                window.pJSDom[0].pJS.fn.particlesStop();
+            }
+            // Disable any other dynamic elements
+            document.querySelectorAll('.skill-progress').forEach(progress => {
+                progress.style.animation = 'none';
+            });
+        }
+        localStorage.setItem('animations', enabled);
+    }
+
+    // Initialize animation state on page load
+    function initializeAnimationState() {
+        const savedAnimations = localStorage.getItem('animations');
+        if (savedAnimations !== null) {
+            const animationsEnabled = savedAnimations === 'true';
+            toggleAnimations(animationsEnabled);
+        } else {
+            toggleAnimations(defaultAnimations);
+        }
     }
 
     // Load saved preferences
@@ -82,6 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             document.body.setAttribute('data-theme', defaultTheme);
         }
+
+        // Initialize animation state
+        initializeAnimationState();
     }
 
     // Update the glass card's transparency and glow effects
@@ -165,11 +213,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Animation toggle handler
+    if (animationControl) {
+        animationControl.addEventListener('click', function() {
+            const currentlyEnabled = !document.body.classList.contains('no-animations');
+            toggleAnimations(!currentlyEnabled);
+            showNotification(currentlyEnabled ? 'Animations disabled' : 'Animations enabled');
+        });
+    }
+
     // Settings reset handler
     const resetBtn = document.getElementById('mainResetBtn');
     if (resetBtn) {
         resetBtn.addEventListener('click', function() {
-            const resetChoice = prompt("Which settings would you like to reset?\nType 'Audio', 'Transparency', 'Theme', or 'All'.").toLowerCase();
+            const resetChoice = prompt("Which settings would you like to reset?\nType 'Audio', 'Transparency', 'Theme', 'Animations', or 'All'.").toLowerCase();
 
             if (resetChoice === 'audio') {
                 // Reset all audio-related settings
@@ -183,20 +240,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 audio.src = `${basePath}sounds/${defaultAudio}`;
                 localStorage.removeItem('backgroundAudio');
                 showNotification('Audio settings reset');
-
             } else if (resetChoice === 'transparency') {
                 // Reset transparency only
                 transparencySlider.value = defaultTransparency;
                 applyTransparency(defaultTransparency);
                 localStorage.removeItem('cardTransparency');
                 showNotification('Transparency settings reset');
-
             } else if (resetChoice === 'theme') {
                 // Reset theme
                 document.body.setAttribute('data-theme', defaultTheme);
                 localStorage.removeItem('theme');
                 showNotification('Theme settings reset');
-
+            } else if (resetChoice === 'animations') {
+                // Reset animations
+                toggleAnimations(defaultAnimations);
+                showNotification('Animation settings reset');
             } else if (resetChoice === 'all') {
                 // Reset audio settings
                 audio.volume = defaultVolume;
@@ -223,6 +281,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.setAttribute('data-theme', defaultTheme);
                 localStorage.removeItem('theme');
 
+                // Reset animations
+                toggleAnimations(defaultAnimations);
+                localStorage.removeItem('animations');
+
                 showNotification('All settings reset');
             } else {
                 showNotification('No settings were reset');
@@ -232,4 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load preferences when the page loads
     loadPreferences();
+
+    // Initialize animation state immediately
+    initializeAnimationState();
 }); 
